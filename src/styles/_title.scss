@@ -1,0 +1,14 @@
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        color: rgb(1, 90, 1);
+    }
+    h4 {
+        color: rgb(208, 136, 3);
+        font-family: $font-secondaire;
+    }
+
+}
