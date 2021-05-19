@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ListCard from './List/ListCard';
 
 function MainContent() {
     return (
         <div className="main-content">
-            <h1>content</h1>
+            <ListCard/>
+            <ListCard/> 
+            <ListCard/>          
         </div>
     )
 }

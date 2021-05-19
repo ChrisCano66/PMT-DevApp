@@ -1,5 +1,5 @@
 import './styles/App.css';
-import Title from './components/Title';
+import Title from './components/MainTitle';
 import MainContent from './components/MainContent';
 
 function App() {
