@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 .title {
   display: -webkit-box;
@@ -11,14 +11,27 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 10px 0 30px 0;
 }
 
 .title h1 {
-  color: #015a01;
+  color: #bbe1fa;
+  font-weight: 900;
+  text-decoration: underline;
+  -webkit-text-decoration-color: #3282b8;
+          text-decoration-color: #3282b8;
+  margin: 10px 0;
 }
 
 .title h4 {
-  color: #d08803;
+  color: #bbe1fa;
+  font-family: Nanum Pen Script, cursive;
+  font-size: 1.8rem;
+}
+
+.main-content {
+  width: 100%;
+  height: auto;
 }
 
 * {
@@ -27,17 +40,24 @@
 }
 
 body {
-  font-family: Indie Flower, cursive;
+  font-family: Amatic SC, cursive;
+  font-size: 2rem;
 }
 
 .App {
   width: 100%;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #1b262c;
 }
 /*# sourceMappingURL=App.css.map */

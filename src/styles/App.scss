@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-@import "./_title.scss";
-
 $font-principale: Amatic SC, cursive;
 $font-secondaire: Nanum Pen Script, cursive;
+
+$color1: #1b262c;
+$color2: #0f4c75;
+$color3: #3282b8;
+$color4: #bbe1fa;
+
+@import "./_title.scss";
+@import "./_maincontent.scss";
 
 
 
@@ -14,11 +20,17 @@ $font-secondaire: Nanum Pen Script, cursive;
 
 body {
     font-family: $font-principale;
+    font-size: 2rem;
 }
 
 .App {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
+    
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: $color1;
 }
