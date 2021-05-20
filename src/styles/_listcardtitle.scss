@@ -1,10 +1,23 @@
 .list-title {
 
-    .list-title-standing {
-
+    .typo-title {
+        display: flex;
+        padding: 6px;
+        .list-title-standing {
+            flex-grow: 1;
+        }
+    }
+    
+    .typo-input {
+        padding: 0 6px;
+        .list-title-input {
+            padding: 6px;
+            border-radius: 15px;
+            &:focus {
+                background-color: $color4;
+            }
+        }
     }
 
-    .list-title-input {
-        
-    }
+    
 }

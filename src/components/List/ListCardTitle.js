@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
-import { InputBase } from '@material-ui/core';
+import { Typography, InputBase } from '@material-ui/core';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 function ListCardTitle() {
 
@@ -14,12 +15,25 @@ function ListCardTitle() {
              * s'il est ouvert on met l'inputText 
              * sinon, on affiche simplement le titre */}
             {openTitle ? (
-                <div className="list-title-input">
-                    <InputBase value="Todo"/>
+                // ce qui s'affiche lorsque l'on veut éditer
+                <div className="typo-input">
+                    <InputBase 
+                        value="Todo" 
+                        fullWidth 
+                        inputProps ={{
+                            className:"list-title-input"
+                        }}
+                        onBlur={() => setOpenTitle(!openTitle)}
+                    />                        
                 </div>
             ) : (
-                <div className="list-title-standing">
-                    <h3 onClick={() => setOpenTitle(!openTitle)}>todo</h3>
+                // ce qui s'affiche en temps normal (juste le titre)
+                <div className="typo-title">
+                    <Typography 
+                        onClick={() => setOpenTitle(!openTitle)}  
+                        className="list-title-standing"
+                    >todo</Typography>
+                    <MoreHorizIcon />
                 </div>
             )}
 
