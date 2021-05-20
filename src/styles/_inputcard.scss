@@ -1,0 +1,20 @@
+.input-card {
+    padding: 0;
+    .add-item-input {
+        padding: 6px;
+        border-radius: 5px;
+        background-color: $color4;
+        border: solid 2px $color1;
+    }
+
+    .add-item-btnConfirm {
+        padding: 1px 5px;
+        background-color: #037603;
+        color: whitesmoke;
+        border: solid 2px $color1;
+        border-radius: 5px;
+        &:hover {
+            background-color: #03760399;
+        }
+    }
+}

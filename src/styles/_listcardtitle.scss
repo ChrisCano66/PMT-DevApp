@@ -1,10 +1,12 @@
 .list-title {
-
     .typo-title {
         display: flex;
         padding: 6px;
         .list-title-standing {
             flex-grow: 1;
+            font-family: $font-tertiare;
+            font-size: 1.4rem;
+            font-weight: bold;
         }
     }
     
@@ -17,7 +19,5 @@
                 background-color: $color4;
             }
         }
-    }
-
-    
+    }    
 }

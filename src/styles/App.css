@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Handlee&display=swap");
 .main-title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -46,7 +47,7 @@
 }
 
 .list-card {
-  width: 200px;
+  width: 260px;
   height: 400px;
   margin: 0 15px;
   background-color: #0f4c75;
@@ -66,6 +67,9 @@
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  font-family: Handlee, cursive;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .list-title .typo-input {
@@ -79,6 +83,49 @@
 
 .list-title .typo-input .list-title-input:focus {
   background-color: #bbe1fa;
+}
+
+.item-card {
+  padding: 2px 5px;
+  margin: 6px;
+  font-family: Nanum Pen Script, cursive;
+  font-weight: lighter;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  background-color: #3282b8;
+}
+
+.input-container {
+  padding: 4px 5px;
+  margin: 6px;
+  background-color: #0f4c75;
+}
+
+.input-container:hover {
+  border-radius: 15px;
+}
+
+.input-card {
+  padding: 0;
+}
+
+.input-card .add-item-input {
+  padding: 6px;
+  border-radius: 5px;
+  background-color: #bbe1fa;
+  border: solid 2px #1b262c;
+}
+
+.input-card .add-item-btnConfirm {
+  padding: 1px 5px;
+  background-color: #037603;
+  color: whitesmoke;
+  border: solid 2px #1b262c;
+  border-radius: 5px;
+}
+
+.input-card .add-item-btnConfirm:hover {
+  background-color: #03760399;
 }
 
 * {

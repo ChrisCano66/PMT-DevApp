@@ -19,6 +19,7 @@ function ListCardTitle() {
                 <div className="typo-input">
                     <InputBase 
                         value="Todo" 
+                        autoFocus
                         fullWidth 
                         inputProps ={{
                             className:"list-title-input"
@@ -32,7 +33,7 @@ function ListCardTitle() {
                     <Typography 
                         onClick={() => setOpenTitle(!openTitle)}  
                         className="list-title-standing"
-                    >todo</Typography>
+                    >Todo</Typography>
                     <MoreHorizIcon />
                 </div>
             )}
