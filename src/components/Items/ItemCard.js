@@ -1,9 +1,10 @@
 import React from 'react';
 
-function ItemCard() {
+function ItemCard({ item }) {
     return (
         <div className="item-card">
-            <h5>Makink a app !</h5>
+            {/** on affiche le contenu de l'item */}
+            <p>{item.content}</p>
         </div>
     )
 }

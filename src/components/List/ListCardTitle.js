@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import { Typography, InputBase } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-function ListCardTitle() {
+function ListCardTitle( { title }) {
 
     // constante d'état permette de savoir si on édite ou non le titre de la liste
     const [openTitle, setOpenTitle] = useState(false);
@@ -18,7 +18,7 @@ function ListCardTitle() {
                 // ce qui s'affiche lorsque l'on veut éditer
                 <div className="typo-input">
                     <InputBase 
-                        value="Todo" 
+                        value={title} 
                         autoFocus
                         fullWidth 
                         inputProps ={{
@@ -33,7 +33,9 @@ function ListCardTitle() {
                     <Typography 
                         onClick={() => setOpenTitle(!openTitle)}  
                         className="list-title-standing"
-                    >Todo</Typography>
+                    >
+                        {title}
+                    </Typography>
                     <MoreHorizIcon />
                 </div>
             )}
