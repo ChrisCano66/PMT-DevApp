@@ -1,12 +1,31 @@
-import React, { useState }  from 'react';
-import { Typography, InputBase, IconButton } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import StoreApi from '../../utils/StoreApi';
+import { Typography, InputBase } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ClearIcon from '@material-ui/icons/Clear';
 
-function ListCardTitle( { title }) {
+function ListCardTitle( { title, listId }) {
+
+    // on récupère la fonction updateListContent qui est passée dans l'application 
+    // via le le context StoreAPI.Provider qui englobe l'application
+    const {updateListContent} = useContext(StoreApi);
 
     // constante d'état permette de savoir si on édite ou non le titre de la liste
     const [openTitle, setOpenTitle] = useState(false);
+
+    // constante d'état du titre et du nouveau titre (si modif) de la liste 
+    // (par défaut c'est le titre enregistré dans le store)
+    const [newTitle, setNewTitle] = useState(title);
+
+    // Fonction qui gère le changement de titre de la liste
+    const handleOnChange = (event) => {
+        setNewTitle(event.target.value);
+    };
+
+    // Fonction qui gère la validation du changement de titre de la liste
+    const handleOnBlur = () => {
+        updateListContent(newTitle, listId);
+        setOpenTitle(false);
+    };
 
     // on retourne le titre selon l'état d'édition
     return (
@@ -19,26 +38,15 @@ function ListCardTitle( { title }) {
                 // ce qui s'affiche lorsque l'on veut éditer
                 <div className="typo-input">
                     <InputBase 
-                        value={title} 
+                        onChange={handleOnChange}
+                        value={newTitle} 
                         autoFocus
                         fullWidth 
                         inputProps ={{
                             className:"list-title-input"
                         }}
-                        onBlur={() => setOpenTitle(!openTitle)}
-                    />
-                    <IconButton 
-                        // on ferme la zone d'édition quand on clique sur le bouton " X "
-                        onClick={() => setOpenTitle(false)}
-                    >
-                        <ClearIcon/>
-                    </IconButton>  
-                    <IconButton 
-                        // on ferme la zone d'édition quand on clique sur le bouton " X "
-                        onClick={() => setOpenTitle(false)}
-                    >
-                        <ClearIcon/>
-                    </IconButton>                     
+                        onBlur={handleOnBlur}
+                    />                    
                 </div>
             ) : (
                 // ce qui s'affiche en temps normal (juste le titre)

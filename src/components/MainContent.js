@@ -25,8 +25,15 @@ function MainContent() {
 
         // on récupère la bonne liste dans les datas qui correspond à l'item que l'on veut rajouter
         const list = data.lists[listId];
-        // et on rajoute le nouvel item dans la liste en question (en reprenant les items déjà présent)
-        list.items = [...list.items, newItem];
+        
+        // on rajoute la nouvelle id de l'item à la liste des ids d'item
+        list.itemIds = [...list.itemIds, newItemId];
+
+        // on rajoute le nouvel item dans la liste en question (en reprenant les items déjà présent)
+        list.items = {
+            ...list.items, 
+            [newItemId] : newItem,
+        };
 
         // on update le state au niveau des datas avec les nouvelles datas
         const newState = {
@@ -40,13 +47,13 @@ function MainContent() {
                  [listId]:list
              },
         };
+        
         // on applique les nouvelles datas (newState) à la constante d'état des datas 
         setData(newState);
     };
 
     // fonction qui récupère le contenu pour créer une nouvelle liste
     const addMoreList = (content) => {
-        console.log(content);
         
         // création d'une id pour la nouvelle liste en utilisant la méthode 
         // "uuid" afin d'avoir une id unique
@@ -56,15 +63,15 @@ function MainContent() {
         const newList = {
             id: newListId,
             content,
-            items: [],
+            items: {},
+            itemIds: [],
         };
-        console.log(newList);
 
         // on update le state au niveau des datas avec les nouvelles datas
         const newState = {
             // on rajoute la nouvelle listId dans la liste dans listIds
              listIds: [...data.listIds, newListId],
-             // on rajoute les donées de la liste dans la lliste des listes 
+             // on rajoute les données de la liste dans la liste des listes 
              lists: {
                  // on récupère les listes dajà existantes
                  ...data.lists,
@@ -72,14 +79,68 @@ function MainContent() {
                  [newListId]:newList,
              },
         };
-        console.log(newState);
+        
         // on applique les nouvelles datas (newState) à la constante d'état des datas 
         setData(newState);
     };
 
+    // fonction qui édite le contenu d'une liste
+    const updateListContent = (content, listId) => {
+
+        // on récupère la liste qui nous intéresse grâce à l'id
+        const list = data.lists[listId];
+
+        // on modifie le contenu du titre de la liste 
+        list.content = content;
+
+        // on update le state au niveau des datas avec les nouvelles datas
+        const newState = {
+            // on récupère l'ensemble des datas 
+            ...data,
+            // on modifie les données de la liste sélectionnée dans la liste des listes
+            lists: {
+                // on récupère les listes dajà existantes
+                ...data.lists,
+                // on rajoute la nouvelle liste au niveau de sa nouvelle id
+                [listId]: list,
+            },
+        };
+        // on applique les nouvelles datas (newState) à la constante d'état des datas 
+        setData(newState);
+    };
+
+    // fonction qui édite le contenu d'une liste
+    const updateItemContent = (content, listId, ItemId) => {
+        console.log(content);
+
+        // on récupère la liste qui nous intéresse grâce à l'id
+        const list = data.lists[listId];
+
+        // on récupère l'item' qui nous intéresse grâce à son id
+        const item = list.items[ItemId];
+
+        // on modifie le contenu de l'item sélectionné 
+        item.content = content;
+
+        // on update le state au niveau des datas avec les nouvelles datas
+        const newState = {
+            // on récupère l'ensemble des datas 
+            ...data,
+            // on modifie les données de la liste sélectionnée dans la liste des listes
+            lists: {
+                // on récupère les listes dajà existantes
+                ...data.lists,
+                // on rajoute la nouvelle liste au niveau de sa nouvelle id
+                [listId]: list,
+            },
+        };
+        // on applique les nouvelles datas (newState) à la constante d'état des datas 
+        setData(newState); 
+    };
+
     return (
         // Provider permettant de gérer les datas présentes dans les différents items de chaque liste
-        <StoreApi.Provider value={{ addMoreItem, addMoreList }}>
+        <StoreApi.Provider value={{ addMoreItem, addMoreList, updateListContent, updateItemContent }}>
             {/** partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
             <div className="main-content">
                 {/** on boucle sur l'ensemble des listIds dans le Store 

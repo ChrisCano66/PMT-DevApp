@@ -8,14 +8,16 @@ function ListCard({ list }) {
         // une liste avec un titre et contient, dynamiquement, l'ensemble de ses items
         <div className="list-card">
             {/** titre de la liste auquel on passe le titre de la liste stocker dans le Store */}
-            <ListCardTitle title={list.content}/>
+            <ListCardTitle title={list.content} listId={list.id}/>
 
             {/** on boucle sur les items présents dans la list !! */}
-            {list.items.map((item) => (
-                // on passe les infos de l'item sélectionnée à la l'item pour afficher les infos
-                // key pour le mappage
-                <ItemCard key={item.id} item={item}/>
-            ))}    
+            {list.itemIds.map((itemId) => {
+                // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
+                const item = list.items[itemId];
+                // on return la Liste des items
+                return (
+                    <ItemCard key={itemId} listId={list.id} item={item}/>
+            )})}    
             {/** partie servant à l'ajout d'un item dans la liste 
              * on y passe l'id de la liste pour savoir dans qu'elle liste 
              * on doit ajouter le nouveau contenu */}

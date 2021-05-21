@@ -1,31 +1,27 @@
 // Ensembles des données de l'application 
 
-// ITEMS 
-// constante qui stocke les différents items
-const items = [
-    {
-        id: 'card-1',
-        content: 'Learning',
-    },
-    {
-        id: 'card-2',
-        content: 'Learning more',
-    },
-    {
-        id: 'card-3',
-        content: 'Learning even more',
-    },
-];
-
-
 // LISTES 
-// constantes qui stocke l'ensemble des données d'une liste
+// constantes qui stocke l'ensemble des données
 const data = {
     lists: {
         'list-1': {
             id: 'list-1',
             content: 'Todo 1',
-            items,
+            items : {
+                'item1': {
+                    id: 'item1',
+                    content: 'Learning',
+                },
+                'item2': {
+                    id: 'item2',
+                    content: 'Learning more',
+                },
+                'item3': {
+                    id: 'item3',
+                    content: 'Learning more more',
+                },
+            },
+            itemIds: ['item1', 'item2', 'item3']
         },
     },
     listIds: ['list-1'],

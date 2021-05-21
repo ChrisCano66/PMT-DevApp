@@ -5,8 +5,8 @@ import StoreApi from '../../utils/StoreApi';
 
 function InputCard({setOpenInputCard, listId, type}) {
 
-    // on récupère dans une constante la fonction addMoreItem qui est passée dans l'application 
-    // via le le context StoreAPI.Provider qui englobe l'application
+    // on récupère la fonction addMoreItem et la fonction addMoreList qui sont passées
+    // dans l'application via le le context StoreAPI.Provider qui englobe l'application
     const {addMoreItem, addMoreList} = useContext(StoreApi);
 
     // constante d'état pour le onChange
@@ -43,7 +43,7 @@ function InputCard({setOpenInputCard, listId, type}) {
                 inputProps ={{
                     className:"add-item-input"
                 }}
-                placeholder={ type === 'list' ? "Titre de la Liste..." : "Contenu de l\'item..." }
+                placeholder={ type === 'list' ? "Titre de la Liste..." : "Contenu de l'item..." }
                 onBlur={() => setOpenInputCard(false)}
             /> 
             <Button 
@@ -51,7 +51,7 @@ function InputCard({setOpenInputCard, listId, type}) {
                 // on ferme la zone d'édition quand on clique sur le bouton " Ajouter "
                 onClick={handleBtnConfirm}
             >
-                { type === 'list' ? "Ajouter la Liste..." : "Ajouter l\'Item" }
+                { type === 'list' ? "Ajouter la Liste..." : "Ajouter l'Item" }
             </Button>
             <IconButton 
                 // on ferme la zone d'édition quand on clique sur le bouton " X "
