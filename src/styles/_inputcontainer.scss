@@ -1,10 +1,6 @@
 .input-container {
     padding: 4px 5px;
     margin: 6px;
-
+    border-radius: 15px;
     background-color: $color2;
-
-    &:hover {
-        border-radius: 15px;
-    }
 }

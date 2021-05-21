@@ -1,6 +1,7 @@
 import React, { useState }  from 'react';
-import { Typography, InputBase } from '@material-ui/core';
+import { Typography, InputBase, IconButton } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import ClearIcon from '@material-ui/icons/Clear';
 
 function ListCardTitle( { title }) {
 
@@ -25,7 +26,19 @@ function ListCardTitle( { title }) {
                             className:"list-title-input"
                         }}
                         onBlur={() => setOpenTitle(!openTitle)}
-                    />                        
+                    />
+                    <IconButton 
+                        // on ferme la zone d'édition quand on clique sur le bouton " X "
+                        onClick={() => setOpenTitle(false)}
+                    >
+                        <ClearIcon/>
+                    </IconButton>  
+                    <IconButton 
+                        // on ferme la zone d'édition quand on clique sur le bouton " X "
+                        onClick={() => setOpenTitle(false)}
+                    >
+                        <ClearIcon/>
+                    </IconButton>                     
                 </div>
             ) : (
                 // ce qui s'affiche en temps normal (juste le titre)

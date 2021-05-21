@@ -3,16 +3,15 @@ import {v4 as uuid} from 'uuid';
 import ListCard from './List/ListCard';
 import Store from '../utils/Store';
 import StoreApi from '../utils/StoreApi';
+import InputContainer from './Inputs/InputContainer';
 
 function MainContent() {
 
     // constante d'état qui récupère les datas pour l'application
     const [data, setData] = useState(Store);
 
-    // fonction qui récupère le contenu d'un item
+    // fonction qui récupère le contenu pour créer un nouvel item
     const addMoreItem = (content, listId) => {
-
-        console.log(content);
         
         // création d'une id pour le nouvel Item en utilisant la méthode 
         // "uuid" afin d'avoir une id unique
@@ -45,9 +44,42 @@ function MainContent() {
         setData(newState);
     };
 
+    // fonction qui récupère le contenu pour créer une nouvelle liste
+    const addMoreList = (content) => {
+        console.log(content);
+        
+        // création d'une id pour la nouvelle liste en utilisant la méthode 
+        // "uuid" afin d'avoir une id unique
+        const newListId = uuid();
+
+        // création de la nouvelle liste
+        const newList = {
+            id: newListId,
+            content,
+            items: [],
+        };
+        console.log(newList);
+
+        // on update le state au niveau des datas avec les nouvelles datas
+        const newState = {
+            // on rajoute la nouvelle listId dans la liste dans listIds
+             listIds: [...data.listIds, newListId],
+             // on rajoute les donées de la liste dans la lliste des listes 
+             lists: {
+                 // on récupère les listes dajà existantes
+                 ...data.lists,
+                 // on rajoute la nouvelle liste au niveau de sa nouvelle id
+                 [newListId]:newList,
+             },
+        };
+        console.log(newState);
+        // on applique les nouvelles datas (newState) à la constante d'état des datas 
+        setData(newState);
+    };
+
     return (
         // Provider permettant de gérer les datas présentes dans les différents items de chaque liste
-        <StoreApi.Provider value={{ addMoreItem }}>
+        <StoreApi.Provider value={{ addMoreItem, addMoreList }}>
             {/** partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
             <div className="main-content">
                 {/** on boucle sur l'ensemble des listIds dans le Store 
@@ -62,7 +94,8 @@ function MainContent() {
                         // plus une key pour le mappage et les infos de la liste pour leurs réutilisation par les items
                         <ListCard list={list} key={listId}/>
                     )
-                })}         
+                })}
+                <InputContainer type="list"/>       
             </div>
         </StoreApi.Provider>        
     );

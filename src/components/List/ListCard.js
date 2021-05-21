@@ -8,7 +8,7 @@ function ListCard({ list }) {
         // une liste avec un titre et contient, dynamiquement, l'ensemble de ses items
         <div className="list-card">
             {/** titre de la liste auquel on passe le titre de la liste stocker dans le Store */}
-            <ListCardTitle title={list.title}/>
+            <ListCardTitle title={list.content}/>
 
             {/** on boucle sur les items présents dans la list !! */}
             {list.items.map((item) => (

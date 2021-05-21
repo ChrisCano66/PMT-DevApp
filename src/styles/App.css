@@ -41,9 +41,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .list-card {
@@ -98,11 +95,8 @@
 .input-container {
   padding: 4px 5px;
   margin: 6px;
-  background-color: #0f4c75;
-}
-
-.input-container:hover {
   border-radius: 15px;
+  background-color: #0f4c75;
 }
 
 .input-card {

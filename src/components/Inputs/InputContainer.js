@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputCard from './InputCard';
 import { Collapse, Typography } from '@material-ui/core';
 
-function InputContainer({ listId }) {
+function InputContainer({ listId, type }) {
 
     // constante d'état contrôlant l'ouverture/fermeture de l'InputCard
     const [openInputCard, setOpentInputCard] = useState(false);
@@ -19,12 +19,15 @@ function InputContainer({ listId }) {
                     // ainsi que l'id de la liste dans laquelle est l'InputContainer
                     setOpenInputCard={setOpentInputCard}
                     listId={listId}
+                    type={type}
                 />
             </Collapse>
             <Collapse in={!openInputCard}>
                 <Typography
                     onClick={() => setOpentInputCard(!openInputCard)}
-                >+ Ajouter un Item</Typography>
+                >
+                    { type === 'list' ? "+ Ajouter une autre liste" : "+ Ajouter un Item" }
+                </Typography>
             </Collapse>
         </div>
     )

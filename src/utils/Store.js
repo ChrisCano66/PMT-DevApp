@@ -24,7 +24,7 @@ const data = {
     lists: {
         'list-1': {
             id: 'list-1',
-            title: 'Todo 1',
+            content: 'Todo 1',
             items,
         },
     },
