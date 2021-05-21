@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputCard from './InputCard';
 import { Collapse, Typography } from '@material-ui/core';
 
-function InputContainer() {
+function InputContainer({ listId }) {
 
     // constante d'état contrôlant l'ouverture/fermeture de l'InputCard
     const [openInputCard, setOpentInputCard] = useState(false);
@@ -16,7 +16,9 @@ function InputContainer() {
                 <InputCard
                     // on passe la possibilité de modifier l'état à l'InputCard 
                     // pour pouvoir l'utiliser dans celle-ci (clic bouton) (porps)
+                    // ainsi que l'id de la liste dans laquelle est l'InputContainer
                     setOpenInputCard={setOpentInputCard}
+                    listId={listId}
                 />
             </Collapse>
             <Collapse in={!openInputCard}>
