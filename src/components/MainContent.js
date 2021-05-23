@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import {v4 as uuid} from 'uuid';
 import ListCard from './List/ListCard';
 import Store from '../utils/Store';
 import StoreApi from '../utils/StoreApi';
 import InputContainer from './Inputs/InputContainer';
+
 
 function MainContent() {
 
@@ -111,7 +113,6 @@ function MainContent() {
 
     // fonction qui édite le contenu d'une liste
     const updateItemContent = (content, listId, ItemId) => {
-        console.log(content);
 
         // on récupère la liste qui nous intéresse grâce à l'id
         const list = data.lists[listId];
@@ -138,26 +139,67 @@ function MainContent() {
         setData(newState); 
     };
 
+    // fonction permettant de gérer le DnD
+    const onDragEnd = (result) => {
+        // props nécessaire pour le fonctionnement (donnant la source, la destinnation et l'id de l'item qui est DnD)
+        const {destination, source, draggableId} = result;
+
+        // si la destination est null on renvoie rien et on stop là
+        if (!destination) {
+            return;
+        }
+
+        // on récupère (sous forme d'array) la liste des sources et la liste des destinations et l'item qui est DnD
+        const sourceListItemIds = data.lists[source.droppableId].itemIds;
+        const destinationListItemIds = data.lists[destination.droppableId].itemIds;
+
+        // si la source et la destination sont identiques
+        if (source.droppableId === destination.droppableId) {
+            // on enlève l'emplacment à la source
+            sourceListItemIds.splice(source.index, 1);
+            // on ajoute l'emplacement à la destination
+            destinationListItemIds.splice(destination.index, 0, draggableId); 
+            
+            // on actualise le State
+            const newState = {
+                ...data,
+                lists : {
+                    ...data.lists,
+                    [sourceListItemIds] : destinationListItemIds,
+                }
+            };
+            setData(newState);
+        }
+        
+       
+    }
+
+
     return (
         // Provider permettant de gérer les datas présentes dans les différents items de chaque liste
         <StoreApi.Provider value={{ addMoreItem, addMoreList, updateListContent, updateItemContent }}>
-            {/** partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
-            <div className="main-content">
-                {/** on boucle sur l'ensemble des listIds dans le Store 
-                 * et on rend la liste
-                 */}
-                { data.listIds.map((listId) => {
-                    // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
-                    const list = data.lists[listId];
-                    // on return la Liste
-                    return (
-                        // on passe les infos de la liste sélectionnée à la liste pour afficher les items
-                        // plus une key pour le mappage et les infos de la liste pour leurs réutilisation par les items
-                        <ListCard list={list} key={listId}/>
-                    )
-                })}
-                <InputContainer type="list"/>       
-            </div>
+            <DragDropContext onDragEnd={onDragEnd}>
+
+                {/** partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
+                <div className="main-content">
+                    {/** on boucle sur l'ensemble des listIds dans le Store 
+                     * et on rend la liste
+                     */}
+                    { data.listIds.map((listId) => {
+                        // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
+                        const list = data.lists[listId];
+                        // on return la Liste
+                        return (
+                            // on passe les infos de la liste sélectionnée à la liste pour afficher les items
+                            // plus une key pour le mappage et les infos de la liste pour leurs réutilisation par les items
+                            <ListCard list={list} key={listId}/>
+                        )
+                    })}
+
+                    <InputContainer type="list"/>   
+                </div>
+                
+            </DragDropContext>            
         </StoreApi.Provider>        
     );
 };
