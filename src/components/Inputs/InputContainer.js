@@ -20,6 +20,7 @@ function InputContainer({ listId, type }) {
                     setOpenInputCard={setOpentInputCard}
                     listId={listId}
                     type={type}
+                    className="input-btn"
                 />
             </Collapse>
             <Collapse in={!openInputCard}>

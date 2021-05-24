@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import {v4 as uuid} from 'uuid';
 import ListCard from './List/ListCard';
 import Store from '../utils/Store';
@@ -142,11 +142,20 @@ function MainContent() {
     // fonction permettant de gérer le DnD
     const onDragEnd = (result) => {
         // props nécessaire pour le fonctionnement (donnant la source, la destinnation et l'id de l'item qui est DnD)
-        const {destination, source, draggableId} = result;
-        console.log(result);
+        const {destination, source, draggableId, type} = result;
 
         // si la destination est null on renvoie rien et on stop là
         if (!destination) {
+            return;
+        }
+
+        // si le type de l'objet DnD est une liste 
+        if (type === "list") {
+            // on recupère la liste des "listsIds"
+            const newListIds = data.listIds;
+            // on switch les ids de la source et de la destiv=nation grâce à un "splice"
+            newListIds.splice(source.index, 1);
+            newListIds.splice(destination.index, 0, draggableId);
             return;
         }
 
@@ -213,32 +222,45 @@ function MainContent() {
         }
     }
 
-
     return (
         // Provider permettant de gérer les datas présentes dans les différents items de chaque liste
         <StoreApi.Provider value={{ addMoreItem, addMoreList, updateListContent, updateItemContent }}>
+            <div className="main">
             <DragDropContext onDragEnd={onDragEnd}>
 
-                {/** partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
-                <div className="main-content">
-                    {/** on boucle sur l'ensemble des listIds dans le Store 
-                     * et on rend la liste
-                     */}
-                    { data.listIds.map((listId) => {
-                        // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
-                        const list = data.lists[listId];
-                        // on return la Liste
-                        return (
-                            // on passe les infos de la liste sélectionnée à la liste pour afficher les items
-                            // plus une key pour le mappage et les infos de la liste pour leurs réutilisation par les items
-                            <ListCard list={list} key={listId}/>
-                        )
-                    })}
+                {/** zone de liste droppable */}
+                <Droppable droppableId="app" type="list" direction="horizontal">
+                {(provided) => (
+                    // partie principale de l'application (contient, dynamiquement, l'ensemble des listes) */}
+                    <div 
+                        className="main-content" 
+                        ref={provided.innerRef} 
+                        {...provided.droppableProps}
+                    >
+                        {/** on boucle sur l'ensemble des listIds dans le Store 
+                         * et on rend la liste
+                         */}
+                        { data.listIds.map((listId, index) => {
+                            // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
+                            const list = data.lists[listId];
+                            // on return la Liste
+                            return (
+                                // on passe les infos de la liste sélectionnée à la liste pour afficher les items
+                                // plus une key pour le mappage et les infos de la liste pour leurs réutilisation par les items
+                                <ListCard list={list} key={listId} index={index}/>
+                            )
+                        })} 
+                        {/** placeholder pour mettre les espaces libres entre les listes pour le DnD */}
+                        {provided.placeholder}
+                    </div> 
+                )}
+                </Droppable>
 
-                    <InputContainer type="list"/>   
-                </div>
-                
-            </DragDropContext>            
+                {/** partie qui permet de créer un nouvel item */}
+                <InputContainer className="input-container-list" type="list"/> 
+
+            </DragDropContext> 
+            </div>           
         </StoreApi.Provider>        
     );
 };

@@ -12,6 +12,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 10px 0 30px 0;
 }
 
@@ -30,8 +33,19 @@
   font-size: 1.8rem;
 }
 
-.main-content {
-  width: 100%;
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: auto;
+}
+
+.main .main-content {
+  width: auto;
   height: auto;
   padding: 30px;
   display: -webkit-box;
@@ -41,6 +55,12 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.main .main-content .input-container-list {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .list-card {
@@ -87,6 +107,7 @@
 }
 
 .item-card {
+  min-height: 26px;
   padding: 2px 5px;
   margin: 6px;
   font-family: Nanum Pen Script, cursive;
@@ -97,10 +118,16 @@
 }
 
 .input-container {
-  padding: 4px 5px;
+  min-width: 200px;
+  max-height: 30px;
+  padding: 30px 0;
   margin: 6px;
   border-radius: 15px;
-  background-color: #0f4c75;
+  color: #cccccc;
+}
+
+.input-container .input-btn {
+  max-height: 100px;
 }
 
 .input-card {
@@ -137,9 +164,10 @@ body {
 }
 
 .App {
-  width: 100%;
+  width: auto;
   height: auto;
   min-height: 100vh;
+  overflow: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -147,9 +175,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-color: #1b262c;
 }
 /*# sourceMappingURL=App.css.map */
