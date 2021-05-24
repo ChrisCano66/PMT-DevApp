@@ -25,7 +25,6 @@ function ListCard({ list }) {
                     {list.itemIds.map((itemId, index) => {
                         // constante qui récupère l'ensemble des données de la liste ciblé par le mappage 
                         const item = list.items[itemId];
-                        console.log(item);
                         // on return la Liste des items
                         return (
                             <ItemCard key={itemId} listId={list.id} item={item} index={index}/>

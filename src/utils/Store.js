@@ -23,8 +23,19 @@ const data = {
             },
             itemIds: ['item1', 'item2', 'item3']
         },
+        'list-2': {
+            id: 'list-2',
+            content: 'Todo 2',
+            items : {
+                'item4': {
+                    id: 'item4',
+                    content: 'Learning',
+                },
+            },
+            itemIds: ['item4']
+        },
     },
-    listIds: ['list-1'],
+    listIds: ['list-1', 'list-2'],
 };
 
 export default data;

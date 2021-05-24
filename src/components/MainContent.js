@@ -143,22 +143,36 @@ function MainContent() {
     const onDragEnd = (result) => {
         // props nécessaire pour le fonctionnement (donnant la source, la destinnation et l'id de l'item qui est DnD)
         const {destination, source, draggableId} = result;
+        console.log(result);
 
         // si la destination est null on renvoie rien et on stop là
         if (!destination) {
             return;
         }
 
-        // on récupère (sous forme d'array) la liste des sources et la liste des destinations et l'item qui est DnD
+        // on récupère (sous forme d'array) la liste des sources et la liste des destinations pour les listes, les items et les itemIds
+        const sourceList = source.droppableId;
+        const destinationList = destination.droppableId;
         const sourceListItemIds = data.lists[source.droppableId].itemIds;
         const destinationListItemIds = data.lists[destination.droppableId].itemIds;
+        const sourceListItems = data.lists[source.droppableId].items;
+        const destinationListItems = data.lists[destination.droppableId].items;
+
+        // récupération du content de l'item qui est DnD
+        const content = data.lists[source.droppableId].items[draggableId].content;
+
+        // "création" de l'item qui est DnD pour le passer à la liste des items de la liste de destination 
+        const idAndContentItem = {
+            id: draggableId,
+            content,
+        };
 
         // si la source et la destination sont identiques
         if (source.droppableId === destination.droppableId) {
-            // on enlève l'emplacment à la source
+            // on enlève l'emplacment à la source au niveau des itemIds
             sourceListItemIds.splice(source.index, 1);
-            // on ajoute l'emplacement à la destination
-            destinationListItemIds.splice(destination.index, 0, draggableId); 
+            // on ajoute l'emplacement à la destination au niveau des itemIds
+            destinationListItemIds.splice(destination.index, 0, draggableId);
             
             // on actualise le State
             const newState = {
@@ -169,9 +183,34 @@ function MainContent() {
                 }
             };
             setData(newState);
+        } 
+        else {
+            // on enlève l'item au niveau de la source au niveau des items et des itemIds
+            sourceListItemIds.splice(source.index, 1);
+            delete sourceListItems[draggableId];
+            // on ajoute l'item au niveau de la destination au niveau des items et des itemIds
+            destinationListItemIds.splice(destination.index, 0, draggableId); 
+            destinationListItems[draggableId] = idAndContentItem;
+            
+            // on actualise le State
+            const newState = {
+                ...data,
+                lists : {
+                    ...data.lists,
+                    [sourceList] : {
+                        ...data.lists[sourceList],
+                        items : sourceListItems,
+                        itemIds : sourceListItemIds,
+                    },
+                    [destinationList] : {
+                        ...data.lists[destinationList],
+                        items : destinationListItems,
+                        itemIds : destinationListItemIds,
+                    }
+                }
+            };
+            setData(newState);
         }
-        
-       
     }
 
 
