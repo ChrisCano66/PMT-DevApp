@@ -60,7 +60,7 @@ function MainContent() {
     const addMoreList = (content) => {
 
         // TEST BDD AXIOS
-        Axios.post("http://localhost:3001/api/insertlist", {
+        Axios.post("http://localhost:3001/list/insertlist", {
             content_list: content,
         }).then(() => {
             console.log("successful list insert");
