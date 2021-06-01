@@ -5,14 +5,12 @@ import ListCard from './List/ListCard';
 import Store from '../utils/Store';
 import StoreApi from '../utils/StoreApi';
 import InputContainer from './Inputs/InputContainer';
-import Axios from 'axios';
 
 
 function MainContent() {
 
     // constante d'état qui récupère les datas pour l'application
     const [data, setData] = useState(Store);
-    const [dataDB, setDataDB] = useState([]);
 
     // fonction qui récupère le contenu pour créer un nouvel item
     const addMoreItem = (content, listId) => {
@@ -57,15 +55,7 @@ function MainContent() {
     };
 
     // fonction qui récupère le contenu pour créer une nouvelle liste
-    const addMoreList = (content) => {
-
-        // TEST BDD AXIOS
-        Axios.post("http://localhost:3001/list/insertlist", {
-            content_list: content,
-        }).then(() => {
-            console.log("successful list insert");
-        }); 
-
+    const addMoreList = (content) => {    
 
         // création d'une id pour la nouvelle liste en utilisant la méthode 
         // "uuid" afin d'avoir une id unique
